@@ -6,16 +6,16 @@ import '@aws-amplify/ui-vue';
 
 Amplify.configure({
   Auth: {
-    region: 'eu-west-1',
-    userPoolId: 'eu-west-1_G0S2EuViF',
-    userPoolWebClientId: '2elpvum0k1l6qpf0iqgeh0jh4q',
+    region: 'eu-central-1',
+    userPoolId: 'eu-central-1_doTINpVyK',
+    userPoolWebClientId: '4dh77ija4dqplejnd86ljh2hb1',
     mandatorySignIn: true
   }
 })
 
 const myAppConfig = {
-  'aws_appsync_graphqlEndpoint': 'https://t6fywejiqffdjdwlbrslhhzg3e.appsync-api.eu-west-1.amazonaws.com/graphql',
-  'aws_appsync_region': 'eu-west-1',
+  'aws_appsync_graphqlEndpoint': 'https://l4mztksuqzexjilhoxxdl7gr44.appsync-api.eu-central-1.amazonaws.com/graphql',
+  'aws_appsync_region': 'eu-central-1',
   'aws_appsync_authenticationType': 'AMAZON_COGNITO_USER_POOLS'
 }
 
