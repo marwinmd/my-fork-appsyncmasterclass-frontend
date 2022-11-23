@@ -7,4 +7,8 @@ export default {
         state.loggedIn = false
         state.user = undefined;
     },
+    USER_SIGNUP(state, user){
+        state.user = user;
+
+    }
 }
