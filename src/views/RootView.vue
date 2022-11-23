@@ -26,8 +26,13 @@
         <i class="fab fa-twitter text-blue text-4xl mb-5"></i>
         <p class="text-3xl mb-12">See what's happening in the world right now</p>
         <p>Join Twitter today.</p>
-        <button @click.prevent="setSignupStep('step1')" class="rounded-full bg-blue font-bold text-lg text-white mt-4 p-3 hover:bg-darkblue">Sign up</button>
-        <button @click.prevent="showSignInPage" class="rounded-full border border-blue bg-white font-bold text-lg text-blue mt-4 p-3 hover:bg-lightblue">Log in</button>
+        <button @click.prevent="setSignupStep('step1')"
+                class="rounded-full bg-blue font-bold text-lg text-white mt-4 p-3 hover:bg-darkblue">Sign up
+        </button>
+        <button @click.prevent="showSignInPage"
+                class="rounded-full border border-blue bg-white font-bold text-lg text-blue mt-4 p-3 hover:bg-lightblue">
+          Log in
+        </button>
       </div>
     </div>
 
@@ -38,7 +43,10 @@
       <div class="modal-main bg-white w-11/12 mx-auto rounded-lg z-50 overflow-y-auto max-h-full">
         <div v-if="showModal === 'step1'">
           <div class="pl-1 pr-4 py-1 h-12">
-            <button @click="setSignUpStep('step2')" class="rounded-full bg-blue font-bold text-white mt-2 p-1 pl-3 pr-3 relative right-0 float-right hover:bg-darkblue" :class="`${!name || !email || !birthdate ? 'opacity-50 cursor-not-allowed':''}`">Next</button>
+            <button @click="setSignUpStep('step2')"
+                    class="rounded-full bg-blue font-bold text-white mt-2 p-1 pl-3 pr-3 relative right-0 float-right hover:bg-darkblue"
+                    :class="`${!name || !email || !birthdate ? 'opacity-50 cursor-not-allowed':''}`">Next
+            </button>
             <i class="flex justify-center fab fa-twitter text-blue text-2xl mt-2 mb-8"></i>
           </div>
           <div class="pt-5 px-8">
@@ -54,7 +62,8 @@
               <input v-model="email" class="w-full bg-lightblue text-lg" type="text">
             </div>
             <p class="font-bold">Date of birth</p>
-            <p class="text-dark">This will not be shown publicly. Confirm your own age, even if this account is for business, a pet, or something else.</p>
+            <p class="text-dark">This will not be shown publicly. Confirm your own age, even if this account is for
+              business, a pet, or something else.</p>
             <div class="w-full bg-lightblue border-b-2 border-dark mb-8 p-2">
               <input v-model="birthdate" class="w-full bg-lightblue text-lg" type="text">
             </div>
@@ -66,7 +75,10 @@
             <button @click="setSignUpStep('step1')" class="absolute rounded-full p-2 pl-3 hover:bg-lightblue">
               <i class="fas fa-arrow-left text-blue"></i>
             </button>
-            <button @click="setSignUpStep('step3')" class="rounded-full bg-blue font-bold text-white mt-2 p-1 pl-3 pr-3 relative right-0 float-right hover:bg-darkblue">Next</button>
+            <button @click="setSignUpStep('step3')"
+                    class="rounded-full bg-blue font-bold text-white mt-2 p-1 pl-3 pr-3 relative right-0 float-right hover:bg-darkblue">
+              Next
+            </button>
             <i class="flex justify-center fab fa-twitter text-blue text-2xl mt-2 mb-8"></i>
           </div>
           <div class="pt-5 px-8">
@@ -93,19 +105,49 @@
             <div class="mt-5 mb-5">
               <p class="font-bold text-xl mb-1">Personalized ads</p>
               <div class="flex justify-between items-top">
-                <p>You will always see ads on Twitter based on your Twitter activity. When this setting is enabled, Twitter may further personalize ads from Twitter advertisers, on and off Twitter, by combining your Twitter activity with other online activity and information from partners.</p>
+                <p>You will always see ads on Twitter based on your Twitter activity. When this setting is enabled,
+                  Twitter may further personalize ads from Twitter advertisers, on and off Twitter, by combining your
+                  Twitter activity with other online activity and information from partners.</p>
                 <input class="mt-1 ml-2 mr-2" type="checkbox">
               </div>
             </div>
           </div>
         </div>
+        <div v-if="showModal === 'step3'">
+          <div class="pl-1 pr-4 py-1 h-12">
+            <button @click="setSignUpStep('step2')" class="absolute rounded-full p-2 pl-3 hover:bg-lightblue">
+              <i class="fas fa-arrow-left text-blue"></i>
+            </button>
+            <button @click="setSignUpStep('step4')"
+                    class="rounded-full bg-blue font-bold text-white mt-2 p-1 pl-3 pr-3 relative right-0 float-right hover:bg-darkblue"
+                    :class="`${password.length < 8 ? 'opacity-50 cursor-not-allowed' : ''}`">
+              Next
+            </button>
+            <i class="flex justify-center fab fa-twitter text-blue text-2xl mt-2 mb-8"></i>
+          </div>
+          <div class="pt-5 px-8">
+            <div class="flex justify-between items-center pb-4">
+              <p class="text-2xl font-bold">You'll need a password.</p>
+            </div>
+            <p class="text-dark mb-2">Make sure it`s 8 characters or more.</p>
+            <div class="w-full bg-lightblue border-b-2 border-dark p-2">
+              <p class="leading-tight text-dark">Password</p>
+              <input v-model="password" class="w-full bg-lightblue text-lg"
+                     :type="`${revealPassword ? 'text': 'password'}`">
+            </div>
+            <button @click="revealPassword = !revealPassword" class="text-blue pl-2">Reveal password</button>
+          </div>
+
+
+        </div>
+
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex';
+import {mapActions, mapGetters} from 'vuex';
 
 export default {
   name: 'Root',
@@ -114,6 +156,8 @@ export default {
       name: '',
       email: '',
       birthdate: '',
+      password: '',
+      revealPassword: false,
     }
   },
   computed: {
@@ -128,10 +172,15 @@ export default {
     ...mapActions('signup', [
       'setSignupStep'
     ]),
-    setSignUpStep(step){
-      switch(step){
+    setSignUpStep(step) {
+      switch (step) {
         case 'step2':
           if (!this.name || !this.email || !this.birthdate) {
+            return;
+          }
+          break;
+        case 'step4':
+          if (this.password.length < 8) {
             return;
           }
           break;
@@ -150,6 +199,7 @@ div {
   border: 1px dashed blue;
   padding: 15px;
 }
+
 div.items-center.justify-center {
   background-color: rgba(240, 240, 240, 0.5);
 }
